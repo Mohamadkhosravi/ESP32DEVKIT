@@ -9,8 +9,7 @@ void setup() {
   Serial.begin(9600);
   WiFi.begin("AndroidAP54E7", "12345678");
   pinMode(LED,OUTPUT);
-  // put your setup code here, to run once:
- // Serial.printf("status%s", WiFi.status);
+ //wifi setup
  while (WiFi.status() != WL_CONNECTED)
   {
 
@@ -26,5 +25,7 @@ void loop() {
   delay(1000);
    digitalWrite(LED,LOW);
    delay(1000);
+   Serial.printf("wifi DNS IP is = %d \n",(WiFi.dnsIP()));
+  Serial.printf("wifi macAddress IP is = %d \n",(WiFi.macAddress()));
   // put your main code here, to run repeatedly:
 }
