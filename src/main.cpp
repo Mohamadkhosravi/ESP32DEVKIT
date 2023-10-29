@@ -3,7 +3,7 @@
 #include <WiFiClientSecure.h>
 #define   LED  2
 
-
+bool wifisetup(void);
 void setup() {
   //pinMode(10, OUTPUT);
   Serial.begin(9600);
@@ -21,11 +21,19 @@ void setup() {
 }
 
 void loop() {
-  digitalWrite(LED,HIGH);
+  wifisetup();
+  
+}
+bool wifisetup(void) {
+
+digitalWrite(LED,HIGH);
   delay(1000);
    digitalWrite(LED,LOW);
    delay(1000);
    Serial.printf("wifi DNS IP is = %d \n",(WiFi.dnsIP()));
   Serial.printf("wifi macAddress IP is = %d \n",(WiFi.macAddress()));
   // put your main code here, to run repeatedly:
+
+
+
 }
