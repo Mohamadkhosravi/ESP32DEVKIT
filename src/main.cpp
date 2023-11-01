@@ -1,39 +1,40 @@
 #include <Arduino.h>
-#include <WiFi.h>
-#include <WiFiClientSecure.h>
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEScan.h>
+#include <BLEAdvertisedDevice.h>
 #define   LED  2
+int scanTime = 5; //In seconds
+BLEScan* pBLEScan;
 
-bool wifisetup(void);
+ class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
+  
+    void onResult(BLEAdvertisedDevice advertisedDevice) {
+      Serial.printf("Advertised Device: %s \n", advertisedDevice.toString().c_str());
+    }
+};
 void setup() {
-  //pinMode(10, OUTPUT);
-  Serial.begin(9600);
-  WiFi.begin("AndroidAP54E7", "12345678");
-  pinMode(LED,OUTPUT);
- //wifi setup
- while (WiFi.status() != WL_CONNECTED)
-  {
 
-    Serial.println(".");
-     
-  }
- 
-  // put your setup code here, to run once:
+  Serial.begin(9600);
+  Serial.println("Scanning...");
+
+  BLEDevice::init("");
+  pBLEScan = BLEDevice::getScan(); //create new scan
+  pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
+  pBLEScan->setActiveScan(true); //active scan uses more power, but get results faster
+  pBLEScan->setInterval(100);
+  pBLEScan->setWindow(99);  // less or equal setInterval value
+  
 }
 
 void loop() {
-  wifisetup();
-  
-}
-bool wifisetup(void) {
-
-digitalWrite(LED,HIGH);
-  delay(1000);
-   digitalWrite(LED,LOW);
-   delay(1000);
-   Serial.printf("wifi DNS IP is = %d \n",(WiFi.dnsIP()));
-  Serial.printf("wifi macAddress IP is = %d \n",(WiFi.macAddress()));
   // put your main code here, to run repeatedly:
-
-
-
+  BLEScanResults foundDevices = pBLEScan->start(scanTime, false);
+  Serial.print("Devices found: ");
+  Serial.println(foundDevices.getCount());
+  Serial.println("Scan done!");
+  pBLEScan->clearResults();   // delete results fromBLEScan buffer to release memory
+  delay(2000);
 }
+
+
