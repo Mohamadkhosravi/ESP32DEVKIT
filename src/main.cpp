@@ -3,9 +3,13 @@
 #include <BLEUtils.h>
 #include <BLEScan.h>
 #include <BLEAdvertisedDevice.h>
+#include <myWifi.h>
 #define   LED  2
 int scanTime = 5; //In seconds
 BLEScan* pBLEScan;
+
+
+
 
  class MyAdvertisedDeviceCallbacks: public BLEAdvertisedDeviceCallbacks {
   
@@ -17,7 +21,7 @@ void setup() {
 
   Serial.begin(9600);
   Serial.println("Scanning...");
-
+  
   BLEDevice::init("");
   pBLEScan = BLEDevice::getScan(); //create new scan
   pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks());
@@ -28,6 +32,9 @@ void setup() {
 }
 
 void loop() {
+
+
+
   // put your main code here, to run repeatedly:
   BLEScanResults foundDevices = pBLEScan->start(scanTime, false);
   Serial.print("Devices found: ");
