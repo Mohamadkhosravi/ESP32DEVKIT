@@ -1,2 +1,2 @@
 # ESP32DEVKIT
-my test progect
+my test project
