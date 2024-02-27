@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include<WiFi.h>
 #include<WiFiClient.h>
-
+#include<WebServer.h>
 #define TIME_OUT_WIFI_SETUP 1000 //ms
 //fd.wifiSetup("AndroidAP54E7","12345678");
 class myWifi
@@ -15,6 +15,7 @@ public :
     
  bool wifiSetup(char *userName,char *pasword);
  void runWifi(void);
+ 
     
    
 };
