@@ -18,8 +18,8 @@ bool myWifi::wifiSetup(char *userName, char *pasword)
 
 void myWifi::runWifi(void)
 {
-
-    Serial.printf("wifi DNS IP is = %d \n", (WiFi.dnsIP()));
+String IP="wifi DNS IP is" +(String)WiFi.dnsIP();
+    Serial.println(IP);
     Serial.printf("wifi macAddress IP is = %d \n", (WiFi.macAddress()));
 }
  void myWifi::WebServerSetup(void)

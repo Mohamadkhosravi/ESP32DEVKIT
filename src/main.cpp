@@ -4,7 +4,7 @@
 //BlouetoothServer myBLI; 
 myWifi wifi ;
 void setup(){
-Serial.begin(115200);
+Serial.begin(9600);
 // myBLI.setup();
 wifi.wifiSetup("AndroidAP54E7","12345678");
 wifi.WebServerSetup();
@@ -13,8 +13,9 @@ wifi.WebServerSetup();
 void loop() {
    //char my_massage[]="Hello word"; 
   // myBLI.sendMassage(my_massage);
+  
    wifi.runWifi();
-
+   wifi.WebServerRun();
 }
 
 
