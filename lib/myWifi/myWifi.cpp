@@ -1,5 +1,5 @@
-
 #include <myWifi.h>
+
  WebServer server(80);
 bool myWifi::wifiSetup(char *userName, char *pasword)
 {
@@ -18,15 +18,16 @@ bool myWifi::wifiSetup(char *userName, char *pasword)
 
 void myWifi::runWifi(void)
 {   WiFi.mode(WIFI_STA);
-    String IP="wifi DNS IP is";
-    Serial.println(IP);
-     Serial.println(WiFi.localIP());
+   //String IP="wifi DNS IP is";
+    //Serial.println(IP);
+   // Serial.println(WiFi.localIP());
     //Serial.printf("wifi macAddress IP is = %d \n", (WiFi.macAddress()));
 }
  void myWifi::WebServerSetup(void)
  {
-        server.send(200, "text/html", "<!DOCTYPE html><html><head> <title>Hello World ESP Web Server</title></head><body><h1>Hello World!</h1><p>This is a basic HTML page served by an ESP web server.</p></body></html>");
-    
+        // server.send(200, "text/html", "<!DOCTYPE html><html><head> <title>Hello World ESP Web Server</title></head><body><h1>Hello World!</h1><p>This is a basic HTML page served by an ESP web server.</p></body></html>");
+   
+
      //String webSite = "<!DOCTYPE html><html><head><title>Page Title</title></head><body style='background-color: #EEEEEE;'><span style='color: #003366;'><h1>Lets generate a random number</h1><p>The random number is: </p></span></body></html>";
      
 
@@ -37,18 +38,21 @@ void myWifi::runWifi(void)
  }
  void myWifi::WebServerRun(void)
  {
-   
-    server.handleClient(); // انتظار برای درخواست‌ها
-    // درخواست GET را بررسی می‌کنیم
-    WiFiClient client = server.client(); // گرفتن اشاره‌گر به مشتری
-    if (client) // اگر مشتری معتبر باشد
+   String pullServer;
+    server.handleClient();
+    WiFiClient client = server.client();
+    if (client)
     {
-        if (server.method() == HTTP_GET) // اگر درخواست GET بود
+        if (server.method() == HTTP_GET) 
         {
-            //server.send(200, "text/html", "<!DOCTYPE html><html><head><title>Hello World ESP Web Server</title></head><body><h1>Hello World!</h1><p>This is a basic HTML page served by an ESP web server.</p></body></html>");
-            server.send(200, "text/plain", "Hello from ESP32!");
+
+          server.send(200, "text/html",SendHTML(0,0));
+          
+           // server.send(200, "text/html", "<!DOCTYPE html><html><head><title>Hello World ESP Web Server</title></head><body><h1>Hello World!</h1><p>This is a basic HTML page served by an ESP web server.</p></body></html>");
+           // server.send(200, "text/plain", "Hello from ESP32!");
         }
-    
+      String value = server.arg("data");
+      Serial.println(value);
     }
     
  }

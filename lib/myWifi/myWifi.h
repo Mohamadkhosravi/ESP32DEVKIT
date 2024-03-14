@@ -5,6 +5,7 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
+#include <WebSockets.h>
 #define TIME_OUT_WIFI_SETUP 1000 // ms
 // fd.wifiSetup("AndroidAP54E7","12345678");
 class myWifi
