@@ -1,12 +1,16 @@
 #include <Arduino.h>
 // #include<BlouetoothServer.h>
 #include<myWifi.h>
+#include<WebSockets.h>
+
 //BlouetoothServer myBLI; 
 myWifi wifi ;
 void setup(){
 Serial.begin(9600);
 // myBLI.setup();
-wifi.wifiSetup("AndroidAP54E7","12345678");
+
+//wifi.wifiSetup("AndroidAP54E7","12345678");
+wifi.wifiSetup("mohamadkh","809236ML7368S");
 wifi.WebServerSetup();
 
 }
@@ -16,6 +20,7 @@ void loop() {
   
    wifi.runWifi();
    wifi.WebServerRun();
+   delay(200);
 }
 
 

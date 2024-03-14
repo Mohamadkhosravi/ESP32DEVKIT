@@ -17,23 +17,15 @@ bool myWifi::wifiSetup(char *userName, char *pasword)
 }
 
 void myWifi::runWifi(void)
-{
-String IP="wifi DNS IP is" ;
+{   WiFi.mode(WIFI_STA);
+    String IP="wifi DNS IP is";
     Serial.println(IP);
-
-    Serial.println(WiFi.localIP());
+     Serial.println(WiFi.localIP());
     //Serial.printf("wifi macAddress IP is = %d \n", (WiFi.macAddress()));
 }
  void myWifi::WebServerSetup(void)
  {
-       
-      
-
-        int randomval = random(100);
-        int interval = 5000; // virtual delay
-        unsigned long previou;
-       
-        server.send(200, "text/html", SendHTML(0,0));
+        server.send(200, "text/html", "<!DOCTYPE html><html><head> <title>Hello World ESP Web Server</title></head><body><h1>Hello World!</h1><p>This is a basic HTML page served by an ESP web server.</p></body></html>");
     
      //String webSite = "<!DOCTYPE html><html><head><title>Page Title</title></head><body style='background-color: #EEEEEE;'><span style='color: #003366;'><h1>Lets generate a random number</h1><p>The random number is: </p></span></body></html>";
      
@@ -45,8 +37,20 @@ String IP="wifi DNS IP is" ;
  }
  void myWifi::WebServerRun(void)
  {
+   
+    server.handleClient(); // انتظار برای درخواست‌ها
+    // درخواست GET را بررسی می‌کنیم
+    WiFiClient client = server.client(); // گرفتن اشاره‌گر به مشتری
+    if (client) // اگر مشتری معتبر باشد
+    {
+        if (server.method() == HTTP_GET) // اگر درخواست GET بود
+        {
+            //server.send(200, "text/html", "<!DOCTYPE html><html><head><title>Hello World ESP Web Server</title></head><body><h1>Hello World!</h1><p>This is a basic HTML page served by an ESP web server.</p></body></html>");
+            server.send(200, "text/plain", "Hello from ESP32!");
+        }
     
-   server.handleClient();
+    }
+    
  }
 
 
