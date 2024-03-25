@@ -19,10 +19,10 @@ bool myWifi::wifiSetup(char *userName, char *pasword)
 void myWifi::runWifi(void)
 {
   //WiFi.mode(WIFI_STA);
-  String IP="wifi DNS IP is";
-   Serial.println(IP);
-   Serial.println(WiFi.localIP());
-   Serial.printf("wifi macAddress IP is = %d \n", (WiFi.macAddress()));
+  //  String IP="wifi DNS IP is";
+  //  Serial.println(IP);
+  //  Serial.println(WiFi.localIP());
+  //  Serial.printf("wifi macAddress IP is = %d \n", (WiFi.macAddress()));
 }
 void myWifi::WebServerSetup(void)
 {
