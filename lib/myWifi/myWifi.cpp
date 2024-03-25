@@ -18,11 +18,11 @@ bool myWifi::wifiSetup(char *userName, char *pasword)
 
 void myWifi::runWifi(void)
 {
-  WiFi.mode(WIFI_STA);
-  // String IP="wifi DNS IP is";
-  // Serial.println(IP);
-  // Serial.println(WiFi.localIP());
-  // Serial.printf("wifi macAddress IP is = %d \n", (WiFi.macAddress()));
+  //WiFi.mode(WIFI_STA);
+  String IP="wifi DNS IP is";
+   Serial.println(IP);
+   Serial.println(WiFi.localIP());
+   Serial.printf("wifi macAddress IP is = %d \n", (WiFi.macAddress()));
 }
 void myWifi::WebServerSetup(void)
 {
@@ -43,7 +43,7 @@ void myWifi::WebServerRun(void)
     if (server.method() == HTTP_GET)
     {
 
-      server.send(200, "text/html", SendHTML(0, 0));
+      // server.send(200, "text/html", SendHTML(0, 0));
 
       // server.send(200, "text/html", "<!DOCTYPE html><html><head><title>Hello World ESP Web Server</title></head><body><h1>Hello World!</h1><p>This is a basic HTML page served by an ESP web server.</p></body></html>");
       // server.send(200, "text/plain", "Hello from ESP32!");
@@ -97,7 +97,7 @@ String myWifi::SendHTML(uint8_t led1stat, uint8_t led2stat)
 void myWifi::handle_OnConnect()
 {
 }
-String HTPPGetReguste(char *ServerName)
+String myWifi::HTPPGetReguste(char *ServerName)
 {
   HTTPClient http;
   http.begin(ServerName);

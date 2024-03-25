@@ -16,7 +16,9 @@ class myWifi
 private:
     /* data */
 public:
-    const char* serverName = "http://192.168.1.106:1880/get-sensor";
+   // char* serverName = "http://192.168.1.106:1880/get-sensor";
+    const char* serverName = "http://237.71.232.203/";
+    
     bool wifiSetup(char *userName, char *pasword);
     void runWifi(void);
     void WebServerSetup(void);
