@@ -1,2 +1,11 @@
 # ESP32DEVKIT
-my test project
+
+✅ Done  🟨 In progress  🔳 Not started  ❌failed      
+ 
+| Stage | Status    |
+| :---:   | :---: | 
+|  Bluetooth Low Energy (BLE) | ✅ |
+|  WiFi Setup   | ✅ |
+|  Local Server   | ✅ |
+|  Using a custom API  | 🟨 |
+|  Using to MQTT  | 🔳 |
