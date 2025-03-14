@@ -5,26 +5,24 @@
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
-#include <WebSockets.h>
-#include <ArduinoJson.h>
-#include <HTTPClient.h>
+// #include <WebSockets.h>
+// #include<ArduinoJson.h>
 #define TIME_OUT_WIFI_SETUP 1000 // ms
 // fd.wifiSetup("AndroidAP54E7","12345678");
-
 class myWifi
 {
 private:
+const char *USERNAME="admin";
+const char *PASSWORD="admin";
     /* data */
 public:
-   // char* serverName = "http://192.168.1.106:1880/get-sensor";
-    const char* serverName = "http://237.71.232.203/";
-    
-    bool wifiSetup(char *userName, char *pasword);
+    myWifi(const char *UserName,const char *Password):USERNAME(UserName),PASSWORD(Password){};
+    bool wifiSetup(void);
     void runWifi(void);
     void WebServerSetup(void);
     void WebServerRun(void);
     String SendHTML(uint8_t led1stat,uint8_t led2stat);
-    String HTPPGetReguste(char *ServerName);
+    void getInfo(void);
     void handle_OnConnect();
 };
 
