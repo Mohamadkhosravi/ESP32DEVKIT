@@ -7,6 +7,7 @@
 myWifi wifi("mohammad","79006944805L8S#");
 HTTPClient http;
 WiFiClientSecure client;
+unsigned long   lastTime=0;
 //String serverName = "https://holidayapi.ir/gregorian/{1394}}/{10}/{10}";
 String serverName = "https://timeapi.io/api/time/current/zone?timeZone=Europe%2FAmsterdam";
 void setup() {
@@ -15,35 +16,38 @@ wifi.wifiSetup();
 wifi.runWifi();
 client.setInsecure(); 
 pinMode(LED,OUTPUT);
-
+lastTime=millis();
 }
 
 void loop() {
-  http.begin(serverName.c_str());
-  wifi.getInfo();
-  digitalWrite(LED,HIGH);
-  delay(500);
-  digitalWrite(LED,LOW);
-  delay(500);
-  int httpResponseCode = http.GET();
-   Serial.println(httpResponseCode);  
-   if (WiFi.status() == WL_CONNECTED) {
-    http.begin(client, serverName);
+  if(millis() - lastTime > 10000){
 
-    int httpResponseCode = http.GET();
-    Serial.println(httpResponseCode);
+    lastTime=millis();
+    if (WiFi.status() == WL_CONNECTED) { 
+      wifi.getInfo();
+      http.begin(client, serverName);  
+      int httpResponseCode = http.GET(); 
+      Serial.print("HTTP Response code: ");
+      Serial.println(httpResponseCode);
 
-    if (httpResponseCode > 0) {
-      String payload = http.getString();
-      Serial.println(payload);
+      if (httpResponseCode > 0) {
+        String payload = http.getString(); 
+        Serial.println("Payload:");
+        Serial.println(payload);
+      } else {
+        Serial.print("Error: ");
+        Serial.println(http.errorToString(httpResponseCode));
+      }
+
+      http.end(); 
     } else {
-      Serial.print("Errore ");
-      Serial.println(http.errorToString(httpResponseCode));
+      Serial.println("WiFi Disconnected");
     }
-     http.end();
-  } else {
-    Serial.println("WiFi Error");
-  }
+  } 
+  digitalWrite(LED, HIGH);
+  delay(500);
+  digitalWrite(LED, LOW);
+  delay(500);
  
-  // put your main code here, to run repeatedly:
+  
 }

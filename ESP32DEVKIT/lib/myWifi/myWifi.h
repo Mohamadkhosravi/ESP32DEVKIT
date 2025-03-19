@@ -9,13 +9,19 @@
 // #include<ArduinoJson.h>
 #define TIME_OUT_WIFI_SETUP 1000 // ms
 // fd.wifiSetup("AndroidAP54E7","12345678");
+typedef enum {
+    CONNECTED,
+    DISCONNECTED
+ }connection_t;
 class myWifi
 {
 private:
 const char *USERNAME="admin";
 const char *PASSWORD="admin";
     /* data */
+    connection_t wifiConnection ;
 public:
+
     myWifi(const char *UserName,const char *Password):USERNAME(UserName),PASSWORD(Password){};
     bool wifiSetup(void);
     void runWifi(void);
@@ -24,6 +30,7 @@ public:
     String SendHTML(uint8_t led1stat,uint8_t led2stat);
     void getInfo(void);
     void handle_OnConnect();
+    connection_t ConnectionStatus(void);
 };
 
 // void handle_led1on();

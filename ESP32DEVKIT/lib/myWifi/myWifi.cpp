@@ -1,6 +1,8 @@
 #include <myWifi.h>
 
  WebServer server(80);
+
+
 bool myWifi::wifiSetup()
 {
     unsigned long timeOut;
@@ -12,18 +14,28 @@ bool myWifi::wifiSetup()
 
         if (millis() - timeOut >= TIME_OUT_WIFI_SETUP)
             Serial.printf("\n WiFi failed!");
+            wifiConnection=DISCONNECTED;
             return false;
     }
+    WiFi.mode(WIFI_STA);
     Serial.printf("\n WiFi successfully set up !");
+    wifiConnection=CONNECTED;
     return true;
 }
 
 void myWifi::runWifi(void)
-{   WiFi.mode(WIFI_STA);
+{   
    //String IP="wifi DNS IP is";
     //Serial.println(IP);
    // Serial.println(WiFi.localIP());
     //Serial.printf("wifi macAddress IP is = %d \n", (WiFi.macAddress()));
+}
+
+connection_t myWifi::ConnectionStatus(void)
+{
+  if (WiFi.status() == WL_CONNECTED) wifiConnection=CONNECTED;
+  else wifiConnection=DISCONNECTED;
+  return wifiConnection;
 }
 
 
@@ -61,10 +73,13 @@ void myWifi::runWifi(void)
     
  }
  void myWifi::getInfo(void){
+  
+  //if(ConnectionStatus())(Serial.println("Wifi Connected"));else(Serial.println("Wifi Disconnected "));
   String IP="wifi DNS IP is";
   Serial.println(IP);
   Serial.println(WiFi.localIP());
   Serial.printf("wifi macAddress IP is = %d \n", (WiFi.macAddress()));
+
 }
 
  String myWifi::SendHTML(uint8_t led1stat,uint8_t led2stat){
