@@ -2,8 +2,9 @@
 #include<myWifi.h>
 #include <WiFiClientSecure.h>
 #include<HTTPClient.h>
-
-
+#include <ArduinoJson.h>
+#include<HTTPUpdate.h>
+ 
 #define LED 2
 myWifi wifi("mohammad","79006944805L8S#");
 HTTPClient http;
@@ -22,7 +23,6 @@ lastTime=millis();
 
 void loop() {
   if(millis() - lastTime > 10000){
-
     lastTime=millis();
     if (WiFi.status() == WL_CONNECTED) { 
       wifi.getInfo();
@@ -32,9 +32,11 @@ void loop() {
       Serial.println(httpResponseCode);
 
       if (httpResponseCode > 0) {
+        http.POST(" ");
         String payload = http.getString(); 
         Serial.println("Payload:");
         Serial.println(payload);
+        
       } else {
         Serial.print("Error: ");
         Serial.println(http.errorToString(httpResponseCode));
