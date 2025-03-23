@@ -2,7 +2,6 @@
 #include<myWifi.h>
 #include <WiFiClientSecure.h>
 #include<HTTPClient.h>
-#include <ArduinoJson.h>
 #include<HTTPUpdate.h>
  
 #define LED 2
@@ -11,7 +10,9 @@ HTTPClient http;
 WiFiClientSecure client;
 unsigned long   lastTime=0;
 //String serverName = "https://holidayapi.ir/gregorian/{1394}}/{10}/{10}";
-String serverName = "https://timeapi.io/api/time/current/zone?timeZone=Europe%2FAmsterdam";
+//String serverName = "https://timeapi.io/api/time/current/zone?timeZone=Europe%2FAmsterdam";
+String serverName = "https://petstore.swagger.io/pet/{petId}";
+
 void setup() {
 Serial.begin(9600); 
 wifi.wifiSetup();
