@@ -3,8 +3,10 @@
 #include <WiFiClientSecure.h>
 #include<HTTPClient.h>
 #include<HTTPUpdate.h>
- 
+#include <ArduinoJson.h>
+
 #define LED 2
+
 myWifi wifi("mohammad","79006944805L8S#");
 HTTPClient http;
 WiFiClientSecure client;
@@ -14,6 +16,7 @@ unsigned long   lastTime=0;
 String serverName = "https://petstore.swagger.io/pet/{0}";
 
 void setup() {
+
 Serial.begin(9600); 
 wifi.wifiSetup();
 wifi.runWifi();
@@ -23,15 +26,36 @@ lastTime=millis();
 }
 
 void loop() {
+  StaticJsonDocument<120> doc;
+  doc["id"] = 1;
+  JsonObject category = doc.createNestedObject("category");
+  category["id"] = 100;
+  category["name"] = "Pets";
+  doc["name"] = "Buddy";
+
+  JsonArray photoUrls = doc.createNestedArray("photoUrls");
+  photoUrls.add("https://example.com/photos/buddy1.jpg");
+  photoUrls.add("https://example.com/photos/buddy2.jpg");
+  JsonArray tags = doc.createNestedArray("tags");
+  JsonObject tag1 = tags.createNestedObject();
+  tag1["id"] = 10;
+  tag1["name"] = "cute";
+
+  JsonObject tag2 = tags.createNestedObject();
+  tag2["id"] = 11;
+  tag2["name"] = "friendly";
+  doc["status"] = "available";
+
   if(millis() - lastTime > 10000){
     lastTime=millis();
     if (WiFi.status() == WL_CONNECTED) { 
       wifi.getInfo();
-      http.begin(client, serverName);  
+      http.begin(client, serverName); 
+      http.POST(serializeJson(doc, client));
       int httpResponseCode = http.GET(); 
       Serial.print("HTTP Response code: ");
       Serial.println(httpResponseCode);
-
+      
       if (httpResponseCode > 0) {
        String sendString= "{\"id\": 10,\"category\": {\"id\": 101,\"name\": \"dog\"},\"name\": \"doggie\",\"photoUrls\": [\"string\"],\"tags\": [{\"id\": 0,\"name\": \"string\"}],\"status\": \"available\"}";
 
