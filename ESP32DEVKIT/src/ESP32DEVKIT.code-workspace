@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../Desktop/ESP32DEVKIT/ESP32DEVKIT"
+		},
+		{
+			"name": "ESP32DEVKIT",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}

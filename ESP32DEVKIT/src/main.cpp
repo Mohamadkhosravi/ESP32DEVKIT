@@ -7,13 +7,13 @@
 
 #define LED 2
 
-myWifi wifi("mohammad","79006944805L8S#");
+myWifi wifi("mohamadkh","809236ML7368S");
 HTTPClient http;
 WiFiClientSecure client;
 unsigned long   lastTime=0;
 //String serverName = "https://holidayapi.ir/gregorian/{1394}}/{10}/{10}";
 //String serverName = "https://timeapi.io/api/time/current/zone?timeZone=Europe%2FAmsterdam";
-String serverName = "https://petstore.swagger.io/pet/{0}";
+// String serverName = "https://petstore.swagger.io/pet/{0}";
 
 void setup() {
 
@@ -26,7 +26,7 @@ lastTime=millis();
 }
 
 void loop() {
-  StaticJsonDocument<120> doc;
+/*  StaticJsonDocument<120> doc;
   doc["id"] = 1;
   JsonObject category = doc.createNestedObject("category");
   category["id"] = 100;
@@ -75,7 +75,7 @@ void loop() {
     } else {
       Serial.println("WiFi Disconnected");
     }
-  } 
+  } */
   digitalWrite(LED, HIGH);
   delay(500);
   digitalWrite(LED, LOW);
